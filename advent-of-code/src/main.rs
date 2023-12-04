@@ -1,11 +1,14 @@
-use std::fs;
+use std::fs::File;
+use std::io::{BufReader, BufRead};
 
-fn main() {
+fn main() -> std::io::Result<()> {
+    let file = File::open("input.txt")?;
+    let reader = BufReader::new(file);
 
-    println!("In file {}", file_path);
+    for line in reader.lines() {
+        let line = line?;
+        println!("{}", line);
+    }
 
-    let contents = fs::read_to_string(file_path)
-        .expect("Should have been able to read the file");
-
-    println!("With text:\n{contents}");
+    Ok(())
 }
