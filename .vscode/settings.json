@@ -1,6 +1,0 @@
-{
-  "rust-analyzer.linkedProjects": [
-    "./advent-of-code/Cargo.toml",
-    "./advent-of-code/Cargo.toml"
-  ]
-}

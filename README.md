@@ -1,5 +1,4 @@
-### AOC 2023 
+## AOC 2023
 
-[wip]
+[WIP] This tracks down my progress with AOC 2023
 
-## DAY 1
