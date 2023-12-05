@@ -29,7 +29,7 @@ export function processLine(line: string): number {
   let i = 0;
   let j = splitted.length - 1;
   
-  while (i < j && !prematureFound) {
+  while (i <= j && !prematureFound) {
     if (first && last) {
       prematureFound = true;
     }
@@ -60,7 +60,6 @@ export function processLine(line: string): number {
   if (last && !first) {
     first = last;
   }
-
   n = parseInt(`${first}${last}`, 10);
   return n;
 };
@@ -73,10 +72,8 @@ async function main() {
   const err = [];
   arr.forEach((line, i) => {
     const res = processLine(line);
-    if (Number.isNaN(res)) {
-      err.push(line);
-    }
     count += res;
   });
 };
 
+main();
