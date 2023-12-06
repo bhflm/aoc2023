@@ -17,29 +17,29 @@ describe('Should retrieve correct number for processing lines', () => {
     expect(result).toBe(88);   
   });
   
-  test('nineeight3vxrdvttwo => 33', () => {
+  test('nineeight3vxrdvttwo => 92', () => {
     const result = processLine("nineeight3vxrdvttwo");
-    expect(result).toBe(33);   
+    expect(result).toBe(92);   
   });
   
-  test('tntsjnine3jksrrvone => 33', () => {
+  test('tntsjnine3jksrrvone => 91', () => {
     const result = processLine("tntsjnine3jksrrvone");
-    expect(result).toBe(33);   
+    expect(result).toBe(91);   
   });
 
-  test('three8sdone => 88', () => {
+  test('three8sdone => 31', () => {
     const result = processLine("three8sdone");
-    expect(result).toBe(88);      
+    expect(result).toBe(31);      
   });
 
-  test('nine4nine => 44', () => {
+  test('nine4nine => 99', () => {
     const result = processLine("nine4nine");
-    expect(result).toBe(44);      
+    expect(result).toBe(99);      
   });
 
-  test('fourvone2vbpltlrj => 22', () => {
+  test('fourvone2vbpltlrj => 42', () => {
     const result = processLine("fourvone2vbpltlrj");
-    expect(result).toBe(22);      
+    expect(result).toBe(42);      
   });
 
 })
