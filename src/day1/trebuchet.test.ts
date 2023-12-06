@@ -72,4 +72,15 @@ describe('Should retrieve correct number for processing lines', () => {
     const result = processLine("7pqrstsixteen");
     expect(result).toBe(76);
   });
+
+  test('eightree', () => {
+    const result = processLine("eightree");
+    expect(result).toBe(83);  
+  })
+
+  test('sevenine', () => {
+    const result = processLine("sevenine");
+    expect(result).toBe(79);
+  })
+
 })
