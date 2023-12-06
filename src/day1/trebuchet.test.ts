@@ -42,4 +42,34 @@ describe('Should retrieve correct number for processing lines', () => {
     expect(result).toBe(42);      
   });
 
+  test('two1nine => 29', () => {
+    const result = processLine("two1nine");
+    expect(result).toBe(29);        
+  })
+
+  test('eightwothree => 83', () => {
+    const result = processLine("eightwothree");
+    expect(result).toBe(83);
+  });
+  
+  test('abcone2threexyz', () => {
+    const result = processLine("abcone2threexyz");
+    expect(result).toBe(13);
+  });
+  test('xtwone3four', () => {
+    const result = processLine("xtwone3four");
+    expect(result).toBe(24);
+  });
+  test(' 4nineeightseven2 ', () => {
+    const result = processLine("4nineeightseven2");
+    expect(result).toBe(42);
+  });
+  test('zoneight234', () => {
+    const result = processLine("zoneight234");
+    expect(result).toBe(14);
+  });
+  test('7pqrstsixteen', () => {
+    const result = processLine("7pqrstsixteen");
+    expect(result).toBe(76);
+  });
 })
