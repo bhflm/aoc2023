@@ -8,7 +8,6 @@ async function loadFile(filePath: string) {
   }
 };
 
-// checks if char is digit or not
 function isDigit(c: string): boolean {
   if (!/\d/.test(c)) {
     return false;
@@ -17,51 +16,72 @@ function isDigit(c: string): boolean {
   return true;
 }
 
-export function processLine(line: string): number {
-  let first: string | undefined;
-  let last: string | undefined;
-  let n: number = 0;
-  let prematureFound = false;
-  
-  const splitted: string[] = line.split('');
+export function findNumberSubstring(stringArray: string[], start: number, end: number): number {
+  const validNumbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 
-  // TWO POINTER APPROACH; find first digit and last digit
+  let num = -1;
+
+  if (stringArray.length === 0) {
+    return num;
+  }
+
+  const str = stringArray.slice(start,end).join('');
+
   let i = 0;
-  let j = splitted.length - 1;
-  
-  while (i <= j && !prematureFound) {
-    if (first && last) {
-      prematureFound = true;
+
+  while (i < validNumbers.length && num == -1) {
+    const numberString = validNumbers[i];    
+    const index = str.indexOf(numberString);
+    if (index != -1) {
+      // found Number;
+      num = i + 1;
+      return num;
     }
 
-    if (isDigit(splitted[i]) && !first){
-      first = splitted[i];
-    } 
-    
-    if (!first) {
-      i ++;
-    }
-
-
-    if (isDigit(splitted[j]) && !last){
-      last = splitted[j];
-    }
-
-    if (!last) {
-        j --;
-    }
-
+    i++
   };
+  return num;
+};
 
-  if (first && !last) {
-    last = first;
+
+export function processLine(line: string): number {
+  const splitted: string[] = line.split('');
+  // we're gonna do two passes, one for the very first occurrence of digit / word number from left;
+  let leftDigit = null;
+  let i = 0;
+  while (i < splitted.length && !leftDigit) {
+    // check if !foundLeft i is digit, if digit
+    let numberInSubstring = findNumberSubstring(splitted, 0, i);
+    if (!leftDigit && numberInSubstring != -1){
+      leftDigit = numberInSubstring;
+      // if not check from 0 to I, if chunk of words includes number in string => slice the string until found with indexOf;
+    }
+    // do this as a second check because it goes off by one with the index check, and it gets first on this if 
+    // or probably can refactor it as an if/else if but still it will get first on this 
+    // words have precedence before
+    if(isDigit(splitted[i]) && !leftDigit) {
+      leftDigit = parseInt(splitted[i], 10);
+    }
+    i ++
+  }; 
+
+  let rightDigit = null;
+  let j = splitted.length;
+  // backwards buddy !
+  while (j >= 0 && !rightDigit) {
+    let numberInSubstring = findNumberSubstring(splitted,j,splitted.length);
+    if (!rightDigit && numberInSubstring != -1) {
+      rightDigit = numberInSubstring;
+    };
+
+    if(isDigit(splitted[j]) && !rightDigit) {
+      rightDigit = parseInt(splitted[j], 10);
+    };
+    j --
   }
 
-  if (last && !first) {
-    first = last;
-  }
-  n = parseInt(`${first}${last}`, 10);
-  return n;
+  const digit = parseInt(`${leftDigit}${rightDigit}`, 10);
+  return digit;
 };
 
 async function main() {
@@ -70,10 +90,15 @@ async function main() {
   const files = await loadFile(filePath);
   const arr = files.split(/\r?\n/);
   const err = [];
+
   arr.forEach((line, i) => {
     const res = processLine(line);
     count += res;
   });
+
+  return count;
 };
 
-main();
+const trebuchet = await main();
+
+console.log('trebuchet: ', trebuchet);
